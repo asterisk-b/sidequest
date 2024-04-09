@@ -1,33 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sidequest/features/auth/bloc/login/login_cubit.dart';
+import 'package:sidequest/features/auth/view/welcome_view.dart';
+import 'package:sidequest/injection.dart';
+import 'package:sidequest/repositories/auth_repository.dart';
 
 class AuthPage extends StatelessWidget {
   const AuthPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return AnnotatedRegion(
-      value: const SystemUiOverlayStyle(
-        statusBarColor: Colors.transparent,
-        statusBarIconBrightness: Brightness.dark,
-      ),
-      child: SafeArea(
-        child: Scaffold(
-          body: Column(
-            children: [
-              const Text("Logo"),
-              const Text("Welcome Back"),
-              ElevatedButton(onPressed: () {}, child: const Text('Sign In')),
-              ElevatedButton(onPressed: () {}, child: const Text('Sign Up')),
-              const Text('Continue with'),
-              const Row(
-                children: [
-                  Text("google"),
-                  Text("facebook"),
-                ],
-              )
-            ],
-          ),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => LoginCubit(gt<AuthRepository>())),
+      ],
+      child: const Scaffold(
+        body: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 40, vertical: 40),
+          child: WelcomeView(),
         ),
       ),
     );

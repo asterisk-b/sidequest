@@ -46,6 +46,10 @@ dependencies:
   persistent_bottom_nav_bar_v2: ^5.2.0
   path_provider: ^2.1.2
   bottom_sheet: ^4.0.2
+  flutter_styled_toast: ^2.2.1
+  line_icons: ^2.0.3
+  google_fonts: ^6.2.1
+  google_sign_in: ^6.2.1
 
 dev_dependencies:
   flutter_test:

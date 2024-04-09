@@ -8,7 +8,9 @@ import 'package:sidequest/repositories/auth_repository.dart';
 part 'login_state.dart';
 
 class LoginCubit extends Cubit<LoginState> {
-  LoginCubit(this._authRepository) : super(const LoginState());
+  LoginCubit(AuthRepository authRepository)
+      : _authRepository = authRepository,
+        super(const LoginState());
 
   final AuthRepository _authRepository;
 
@@ -52,8 +54,8 @@ class LoginCubit extends Cubit<LoginState> {
   Future<void> logInWithGoogle() async {
     emit(state.copyWith(status: FormzSubmissionStatus.inProgress));
     try {
-      // await _authenticationRepository.logInWithGoogle();
-      // emit(state.copyWith(status: FormzSubmissionStatus.success));
+      await _authRepository.logInWithGoogle();
+      emit(state.copyWith(status: FormzSubmissionStatus.success));
     } catch (error) {
       emit(state.copyWith(status: FormzSubmissionStatus.failure));
       addError(error);

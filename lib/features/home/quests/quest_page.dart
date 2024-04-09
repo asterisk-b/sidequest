@@ -6,7 +6,7 @@ class QuestPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      body: Text("Quests"),
+      body: Center(child: Text("Quests")),
     );
   }
 }

@@ -8,12 +8,12 @@ final gt = GetIt.instance;
 
 void injection() {
   final supabaseClient = Supabase.instance.client;
+  final authRepository = AuthRepository(auth: supabaseClient.auth);
 
   gt.registerLazySingleton(
-    () => AuthenticationBloc(
-      authRepository: AuthRepository(auth: supabaseClient.auth),
-    ),
+    () => AuthenticationBloc(authRepository: authRepository),
   );
 
+  gt.registerSingleton(authRepository);
   gt.registerSingleton(UserRepository(supabaseClient: supabaseClient));
 }
