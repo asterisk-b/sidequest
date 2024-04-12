@@ -1,7 +1,7 @@
-part of 'login_cubit.dart';
+part of 'register_cubit.dart';
 
-final class LoginState extends Equatable {
-  const LoginState({
+final class RegisterState extends Equatable {
+  const RegisterState({
     this.status = FormzSubmissionStatus.initial,
     this.errorMessage,
   });
@@ -12,8 +12,11 @@ final class LoginState extends Equatable {
   @override
   List<Object?> get props => [status];
 
-  LoginState copyWith({FormzSubmissionStatus? status, String? errorMessage}) {
-    return LoginState(
+  RegisterState copyWith({
+    FormzSubmissionStatus? status,
+    String? errorMessage,
+  }) {
+    return RegisterState(
       status: status ?? this.status,
       errorMessage: errorMessage ?? this.errorMessage,
     );

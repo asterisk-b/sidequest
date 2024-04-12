@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:fpdart/fpdart.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -21,25 +22,33 @@ class AuthRepository {
 
   final GoTrueClient _auth;
 
-  Stream<Session?> get state {
+  Stream<AuthState> get state {
     return _auth.onAuthStateChange.map((state) {
-      // Better write to cache
-      return state.session;
+      return state;
     });
   }
 
-  Future<void> logInWithEmailAndPassword({
+  TaskEither<AuthException, void> registerWithEmailAndPassword({
     required String email,
     required String password,
-  }) async {
-    try {
-      await _auth.signInWithPassword(email: email, password: password);
-    } catch (error, stackTrace) {
-      Error.throwWithStackTrace(
-        SupabaseLoginWithEmailAndPasswordFailure(error),
-        stackTrace,
+    Map<String, dynamic>? data,
+  }) {
+    return TaskEither.tryCatch(() async {
+      await _auth.signUp(
+        email: email,
+        password: password,
+        data: data != null ? {'full_name': data['full_name']} : null,
       );
-    }
+    }, (error, stackTrace) => error as AuthException);
+  }
+
+  TaskEither<AuthException, void> logInWithEmailAndPassword({
+    required String email,
+    required String password,
+  }) {
+    return TaskEither.tryCatch(() async {
+      await _auth.signInWithPassword(email: email, password: password);
+    }, (error, stackTrace) => error as AuthException);
   }
 
   Future<void> logInWithGoogle() async {

@@ -11,7 +11,9 @@ void injection() {
   final authRepository = AuthRepository(auth: supabaseClient.auth);
 
   gt.registerLazySingleton(
-    () => AuthenticationBloc(authRepository: authRepository),
+    () => AuthenticationBloc(
+      authRepository: authRepository,
+    ),
   );
 
   gt.registerSingleton(authRepository);

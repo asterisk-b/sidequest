@@ -3,21 +3,22 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:sidequest/repositories/auth_repository.dart';
 
-part 'login_state.dart';
+part 'register_state.dart';
 
-class LoginCubit extends Cubit<LoginState> {
-  LoginCubit(AuthRepository authRepository)
+class RegisterCubit extends Cubit<RegisterState> {
+  RegisterCubit(AuthRepository authRepository)
       : _authRepository = authRepository,
-        super(const LoginState());
+        super(const RegisterState());
 
   final AuthRepository _authRepository;
 
-  Future<void> logInWithEmailAndPassword(Map<String, dynamic> values) async {
+  Future<void> registerWithEmailAndPassword(Map<String, dynamic> values) async {
     emit(state.copyWith(status: FormzSubmissionStatus.inProgress));
 
-    final task = _authRepository.logInWithEmailAndPassword(
+    final task = _authRepository.registerWithEmailAndPassword(
       email: values['email'],
       password: values['password'],
+      data: {'full_name': values['full_name']},
     );
 
     final response = await task.run();
@@ -30,16 +31,5 @@ class LoginCubit extends Cubit<LoginState> {
     }, (r) {
       emit(state.copyWith(status: FormzSubmissionStatus.success));
     });
-  }
-
-  Future<void> logInWithGoogle() async {
-    emit(state.copyWith(status: FormzSubmissionStatus.inProgress));
-    try {
-      await _authRepository.logInWithGoogle();
-      emit(state.copyWith(status: FormzSubmissionStatus.success));
-    } catch (error) {
-      emit(state.copyWith(status: FormzSubmissionStatus.failure));
-      addError(error);
-    }
   }
 }

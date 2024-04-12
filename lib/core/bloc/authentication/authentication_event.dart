@@ -5,8 +5,10 @@ sealed class AuthenticationEvent {
 }
 
 final class _AuthenticationStatusChanged extends AuthenticationEvent {
-  const _AuthenticationStatusChanged(this.session);
-  final Session? session;
+  const _AuthenticationStatusChanged(this.state);
+  final AuthState state;
 }
+
+final class FinishedOnboarding extends AuthenticationEvent {}
 
 final class AuthenticationLogoutRequested extends AuthenticationEvent {}

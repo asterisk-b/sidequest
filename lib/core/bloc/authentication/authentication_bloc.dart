@@ -15,30 +15,49 @@ class AuthenticationBloc
         super(AuthUnknown()) {
     on<_AuthenticationStatusChanged>(_onAuthenticationChanged);
     on<AuthenticationLogoutRequested>(_onLogoutRequested);
+    on<FinishedOnboarding>(_onFinishedOnboarding);
 
     _authenticationSubscription = _authRepository.state.listen(
-      (session) => add(_AuthenticationStatusChanged(session)),
+      (state) => add(_AuthenticationStatusChanged(state)),
     );
   }
 
   final AuthRepository _authRepository;
-  late StreamSubscription<Session?> _authenticationSubscription;
+  late StreamSubscription<AuthState> _authenticationSubscription;
 
   Future<void> _onAuthenticationChanged(
     _AuthenticationStatusChanged event,
     Emitter<AuthenticationState> emit,
   ) async {
-    final user = event.session?.user;
+    final ev = event.state.event;
 
-    if (user == null) return emit(AuthUnauthenticated());
+    if (ev == AuthChangeEvent.signedIn ||
+        ev == AuthChangeEvent.tokenRefreshed ||
+        ev == AuthChangeEvent.mfaChallengeVerified ||
+        ev == AuthChangeEvent.passwordRecovery ||
+        ev == AuthChangeEvent.userUpdated) {
+      final user = event.state.session?.user;
+      if (user != null) return emit(AuthAuthenticated(user));
+      return emit(AuthUnauthenticated());
+    }
 
-    return emit(AuthAuthenticated(user));
+    if (ev == AuthChangeEvent.signedOut) {
+      return emit(AuthUnauthenticated());
+    }
+
+    if (ev == AuthChangeEvent.userDeleted) {
+      return emit(AuthUnknown());
+    }
   }
 
-  void _onLogoutRequested(
-    AuthenticationLogoutRequested event,
+  void _onFinishedOnboarding(
+    FinishedOnboarding event,
     Emitter<AuthenticationState> emit,
   ) {
+    return emit(AuthUnauthenticated());
+  }
+
+  void _onLogoutRequested(AuthenticationLogoutRequested event, dynamic emit) {
     unawaited(_authRepository.signOut());
   }
 

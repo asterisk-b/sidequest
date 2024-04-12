@@ -1,12 +1,12 @@
 import 'package:formz/formz.dart';
 
 /// Email Form Input Validation Error
-enum PasswordValidationError { invalid }
+// enum PasswordValidationError { invalid }
 
 /// {@template email}
 /// Reusable email form input.
 /// {@endtemplate}
-class PasswordInput extends FormzInput<String, PasswordValidationError> {
+class PasswordInput extends FormzInput<String, String> {
   /// {@macro email}
   const PasswordInput.pure() : super.pure('');
 
@@ -14,7 +14,7 @@ class PasswordInput extends FormzInput<String, PasswordValidationError> {
   const PasswordInput.dirty([super.value = '']) : super.dirty();
 
   @override
-  PasswordValidationError? validator(String value) {
-    return value.isEmpty ? PasswordValidationError.invalid : null;
+  String? validator(String value) {
+    return value.isEmpty ? 'Please enter your password' : null;
   }
 }

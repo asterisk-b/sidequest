@@ -1,27 +1,57 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key, required this.child});
+class HomePageWrapper extends StatefulWidget {
+  const HomePageWrapper({super.key, required this.child});
 
   final StatefulNavigationShell child;
 
   @override
+  State<HomePageWrapper> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePageWrapper> {
+  @override
   Widget build(BuildContext context) {
-    return PersistentTabView.router(
-      tabs: [
-        PersistentRouterTabConfig(
-          item: ItemConfig(icon: const Icon(Icons.home), title: "Quests"),
-        ),
-        PersistentRouterTabConfig(
-          item: ItemConfig(icon: const Icon(Icons.person), title: "Account"),
-        )
-      ],
-      navBarBuilder: (navBarConfig) {
-        return Style8BottomNavBar(navBarConfig: navBarConfig);
-      },
-      navigationShell: child,
+    return Scaffold(
+      body: widget.child,
+      bottomNavigationBar: BottomNavigationBar(
+        showUnselectedLabels: false,
+        selectedFontSize: 10,
+        iconSize: 18,
+        selectedItemColor: Colors.teal,
+        type: BottomNavigationBarType.fixed,
+        currentIndex: widget.child.currentIndex,
+        onTap: (index) {
+          widget.child.goBranch(
+            index,
+            initialLocation: index == widget.child.currentIndex,
+          );
+          setState(() {});
+        },
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.quiz_outlined),
+            activeIcon: Icon(Icons.quiz),
+            label: 'Quests',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.explore_outlined),
+            activeIcon: Icon(Icons.explore),
+            label: 'Explore',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.chat_outlined),
+            activeIcon: Icon(Icons.chat),
+            label: 'Chat',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person_outline),
+            activeIcon: Icon(Icons.person),
+            label: 'Me',
+          ),
+        ],
+      ),
     );
   }
 }

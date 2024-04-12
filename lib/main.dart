@@ -3,6 +3,8 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sidequest/bootstrap.dart';
+import 'package:sidequest/core/_router/router.dart';
+import 'package:sidequest/core/bloc/authentication/authentication_bloc.dart';
 import 'package:sidequest/features/app.dart';
 import 'package:sidequest/injection.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -24,6 +26,8 @@ Future<void> main() async {
   await bootstrap(() {
     // Setup dependencies
     injection();
+
+    BrandNavigation.initialize(gt<AuthenticationBloc>());
 
     return const App();
   });

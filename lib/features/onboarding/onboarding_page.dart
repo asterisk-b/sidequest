@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sidequest/core/bloc/authentication/authentication_bloc.dart';
 
 class OnboardingPage extends StatelessWidget {
   const OnboardingPage({super.key});
@@ -14,7 +15,7 @@ class OnboardingPage extends StatelessWidget {
           const Text("Onboarding"),
           ElevatedButton(
             onPressed: () {
-              context.go('/auth');
+              context.read<AuthenticationBloc>().add(FinishedOnboarding());
             },
             child: const Text('Authentication'),
           ),

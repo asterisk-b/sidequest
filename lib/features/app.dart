@@ -1,9 +1,11 @@
+import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:sidequest/core/_router/router.dart';
+import 'package:sidequest/core/bloc/app_settings/app_settings_cubit.dart';
 import 'package:sidequest/core/bloc/authentication/authentication_bloc.dart';
-import 'package:sidequest/core/router.dart';
+import 'package:sidequest/core/theme/theme.dart';
 import 'package:sidequest/injection.dart';
 
 class App extends StatelessWidget {
@@ -14,9 +16,8 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider<AuthenticationBloc>(
-          create: (context) => gt<AuthenticationBloc>(),
-        ),
+        BlocProvider(create: (_) => AppSettingsCubit()),
+        BlocProvider(create: (_) => gt<AuthenticationBloc>()),
       ],
       child: const StyledToast(
         locale: Locale('en', 'US'),
@@ -36,11 +37,14 @@ class App extends StatelessWidget {
 
 class AppView extends StatefulWidget {
   const AppView({super.key});
+
   @override
   State<AppView> createState() => _AppViewState();
 }
 
-class _AppViewState extends State<AppView> with RouterMixin {
+class _AppViewState extends State<AppView> {
+  final theme = AppTheme();
+
   final int requiredSeconds = 2;
   DateTime? currentBackPressTime;
   bool canPopNow = false;
@@ -71,30 +75,23 @@ class _AppViewState extends State<AppView> with RouterMixin {
     return PopScope(
       canPop: canPopNow,
       onPopInvoked: onPopInvoked,
-      child: MaterialApp.router(
-        routerConfig: routes,
-        title: 'Sidequest',
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          // This is the theme of your application.
-          //
-          // TRY THIS: Try running your application with "flutter run". You'll see
-          // the application has a purple toolbar. Then, without quitting the app,
-          // try changing the seedColor in the colorScheme below to Colors.green
-          // and then invoke "hot reload" (save your changes or press the "hot
-          // reload" button in a Flutter-supported IDE, or press "r" if you used
-          // the command line to start the app).
-          //
-          // Notice that the counter didn't reset back to zero; the application
-          // state is not lost during the reload. To reset the state, use hot
-          // restart instead.
-          //
-          // This works for code too, not just values: Most code changes can be
-          // tested with just a hot reload.
-          useMaterial3: true,
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
-          textTheme: GoogleFonts.latoTextTheme(Theme.of(context).textTheme),
-        ),
+      child: BlocBuilder<AppSettingsCubit, AppSettingsState>(
+        builder: (context, state) {
+          return MaterialApp.router(
+            routerConfig: BrandNavigation.router,
+            title: 'Sidequest',
+            debugShowCheckedModeBanner: false,
+            themeMode: state.mode,
+            theme: FlexThemeData.light(
+              scheme: FlexScheme.tealM3,
+              useMaterial3: true,
+            ),
+            darkTheme: FlexThemeData.dark(
+              scheme: FlexScheme.tealM3,
+              useMaterial3: true,
+            ),
+          );
+        },
       ),
     );
   }
