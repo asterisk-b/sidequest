@@ -1,31 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:sidequest/core/theme/colors.dart';
 import 'package:sidequest/core/theme/theme.dart';
 
-class BrandAppBarTheme implements BrandTheme<AppBarTheme> {
-  @override
-  AppBarTheme get dark => AppBarTheme(
-        // this.foregroundColor,
-        // this.elevation,
-        // this.scrolledUnderElevation,
-        // this.shadowColor,
-        // this.surfaceTintColor,
-        // this.shape,
-        // this.iconTheme,
-        // this.actionsIconTheme,
-        // this.centerTitle,
-        // this.titleSpacing,
-        // this.toolbarHeight,
-        // this.toolbarTextStyle,
-        // this.titleTextStyle,
-        // this.systemOverlayStyle,
-        centerTitle: true,
-        backgroundColor: TColors.darkBaseColor2,
-      );
+class BrandAppBarTheme implements SingleBrandTheme<AppBarTheme> {
+  final ColorScheme color;
+
+  BrandAppBarTheme(this.color);
 
   @override
-  AppBarTheme get light => AppBarTheme(
-        centerTitle: true,
-        backgroundColor: TColors.lightBaseColor0,
+  AppBarTheme get c => AppBarTheme(
+        titleTextStyle: TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.w400,
+          color: color.inverseSurface,
+        ),
+        shape: Border(
+          bottom: BorderSide(color: color.outline, width: 0.25),
+        ),
       );
 }

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:go_router/go_router.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:sidequest/core/_router/router.dart';
 import 'package:sidequest/core/bloc/app_settings/app_settings_cubit.dart';
 import 'package:sidequest/core/widgets/brand_scaffold.dart';
 
@@ -26,7 +26,7 @@ class AuthPage extends StatelessWidget {
 }
 
 class _Welcome extends StatelessWidget {
-  const _Welcome({super.key});
+  const _Welcome();
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +40,7 @@ class _Welcome extends StatelessWidget {
               const Text("Logo"),
               const SizedBox(height: 15),
               ElevatedButton(
-                onPressed: () => context.push('/auth/login'),
+                onPressed: () => context.push('$authPath/$loginPath'),
                 style: ElevatedButton.styleFrom(
                   minimumSize: const Size(double.maxFinite, 45),
                 ),
@@ -48,7 +48,7 @@ class _Welcome extends StatelessWidget {
               ),
               const SizedBox(height: 10),
               OutlinedButton(
-                onPressed: () => context.push('/auth/register'),
+                onPressed: () => context.push('$authPath/$registerPath'),
                 style: ElevatedButton.styleFrom(
                   minimumSize: const Size(double.maxFinite, 45),
                 ),
@@ -121,9 +121,7 @@ class _Welcome extends StatelessWidget {
                 ),
                 const SizedBox(width: 13),
                 IconButton(
-                  onPressed: () {
-                    showToast("Coming soon", context: context);
-                  },
+                  onPressed: () {},
                   style: IconButton.styleFrom(
                     backgroundColor: Colors.black87,
                     surfaceTintColor: Colors.black87,

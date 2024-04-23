@@ -1,0 +1,20 @@
+{
+  "app_settings": {
+    "title": "App Settings",
+    "theme": {
+      "select_title": "Select Theme",
+      "label": "Theme",
+      "system": "System",
+      "light": "Light",
+      "dark": "Dark"
+    },
+    "language": {
+      "select_title": "Select Language",
+      "label": "Language",
+      "language": "English"
+    },
+    "reset": {
+      "label": "Restore system default"
+    }
+  }
+}

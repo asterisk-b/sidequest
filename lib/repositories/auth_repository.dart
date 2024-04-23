@@ -4,29 +4,12 @@ import 'package:fpdart/fpdart.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-abstract class SupabaseAuthException implements Exception {
-  const SupabaseAuthException(this.error);
-  final Object error;
-}
-
-class SupabaseLoginWithEmailAndPasswordFailure extends SupabaseAuthException {
-  const SupabaseLoginWithEmailAndPasswordFailure(super.error);
-}
-
-class SupabaseLogoutOutFailure extends SupabaseAuthException {
-  const SupabaseLogoutOutFailure(super.error);
-}
-
 class AuthRepository {
   AuthRepository({required GoTrueClient auth}) : _auth = auth;
 
   final GoTrueClient _auth;
 
-  Stream<AuthState> get state {
-    return _auth.onAuthStateChange.map((state) {
-      return state;
-    });
-  }
+  Stream<AuthState> get state => _auth.onAuthStateChange.map((state) => state);
 
   TaskEither<AuthException, void> registerWithEmailAndPassword({
     required String email,
@@ -85,19 +68,21 @@ class AuthRepository {
         idToken: idToken,
         accessToken: accessToken,
       );
-    } catch (error, stackTrace) {
-      Error.throwWithStackTrace(
-        SupabaseLoginWithEmailAndPasswordFailure(error),
-        stackTrace,
-      );
+    } catch (error) {
+      // Error.throwWithStackTrace(
+      //   SupabaseLoginWithEmailAndPasswordFailure(error),
+      //   stackTrace,
+      // );
     }
   }
 
   Future<void> signOut() async {
-    try {
-      await _auth.signOut();
-    } catch (error, stackTrace) {
-      Error.throwWithStackTrace(SupabaseLogoutOutFailure(error), stackTrace);
-    }
+    await _auth.signOut();
+
+    // try {
+    //   await _auth.signOut();
+    // } catch (error, stackTrace) {
+    //   Error.throwWithStackTrace(SupabaseLogoutOutFailure(error), stackTrace);
+    // }
   }
 }

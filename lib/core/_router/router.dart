@@ -3,21 +3,26 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sidequest/core/bloc/authentication/authentication_bloc.dart';
+import 'package:sidequest/features/account/account_page.dart';
+import 'package:sidequest/features/account/edit_profile/edit_profile_page.dart';
 import 'package:sidequest/features/auth/authentication_page.dart';
-import 'package:sidequest/features/auth/view/forgot_password_page.dart';
-import 'package:sidequest/features/auth/view/login_page.dart';
-import 'package:sidequest/features/auth/view/register_page.dart';
-import 'package:sidequest/features/home/account/account_page.dart';
+import 'package:sidequest/features/auth/forgot_password/forgot_password_page.dart';
+import 'package:sidequest/features/auth/login/login_page.dart';
+import 'package:sidequest/features/auth/register/register_page.dart';
 import 'package:sidequest/features/home/chat/chat_page.dart';
-import 'package:sidequest/features/home/explore/expore_page.dart';
+import 'package:sidequest/features/home/explore/explore_page.dart';
 import 'package:sidequest/features/home/home_page.dart';
+import 'package:sidequest/features/home/others/others_page.dart';
 import 'package:sidequest/features/home/quests/quest_page.dart';
 import 'package:sidequest/features/onboarding/onboarding_page.dart';
+import 'package:sidequest/features/quest_form/quest_form_page.dart';
 import 'package:sidequest/features/splash/splash_page.dart';
 
 part 'helpers.dart';
+part 'navs_account.dart';
 part 'navs_auth.dart';
 part 'navs_home.dart';
+part 'navs_other.dart';
 
 class GoRouterRefreshStream extends ChangeNotifier {
   GoRouterRefreshStream(Stream<dynamic> stream) {
@@ -64,21 +69,13 @@ class BrandNavigation {
 
   void _init(AuthenticationBloc authBloc) {
     final routes = <RouteBase>[
-      GoRoute(
-        path: splashPath,
-        pageBuilder: (context, state) => _getPage(
-          child: const SplashPage(),
-          state: state,
-        ),
-      ),
-      GoRoute(
-        path: onboardPath,
-        pageBuilder: (context, state) => _getPage(
-          child: const OnboardingPage(),
-          state: state,
-        ),
-      ),
+      _splashRoute,
+      _onboardRoute,
+      _questFormRoute,
       _getAuthenticationNavigation(
+        rootKey: _rootNavigatorKey,
+      ),
+      _getAccountNavigation(
         rootKey: _rootNavigatorKey,
       ),
       _getHomeBottomNavigation(
@@ -89,9 +86,10 @@ class BrandNavigation {
         accountKey: _accountNavigatorKey,
       ),
     ];
+
     router = GoRouter(
       navigatorKey: _rootNavigatorKey,
-      initialLocation: questsPath,
+      initialLocation: splashPath,
       routes: routes,
       redirect: (context, state) => _rootRedirects(
         context: context,

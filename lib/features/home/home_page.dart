@@ -11,44 +11,69 @@ class HomePageWrapper extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePageWrapper> {
+  // bool bannerShowed = false;
+
   @override
   Widget build(BuildContext context) {
+    // if (!bannerShowed) {
+    //   ScaffoldMessenger.of(context).showMaterialBanner(
+    //     MaterialBanner(content: const Text('asd'), actions: []),
+    //   );
+    //   bannerShowed = true;
+    // }
+
     return Scaffold(
+      // AppBar(
+      //   centerTitle: true,
+      //   backgroundColor: Colors.red,
+      //   toolbarHeight: 40,
+      //   title: const Text(
+      //     'Complete your others verification to start your adventure.',
+      //     style: TextStyle(color: Colors.white, fontSize: 13),
+      //   ),
+      // ),
+
       body: widget.child,
-      bottomNavigationBar: BottomNavigationBar(
-        showUnselectedLabels: false,
-        selectedFontSize: 10,
-        iconSize: 18,
-        selectedItemColor: Colors.teal,
-        type: BottomNavigationBarType.fixed,
-        currentIndex: widget.child.currentIndex,
-        onTap: (index) {
-          widget.child.goBranch(
-            index,
-            initialLocation: index == widget.child.currentIndex,
-          );
-          setState(() {});
-        },
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.quiz_outlined),
-            activeIcon: Icon(Icons.quiz),
-            label: 'Quests',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.explore_outlined),
-            activeIcon: Icon(Icons.explore),
-            label: 'Explore',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.chat_outlined),
-            activeIcon: Icon(Icons.chat),
-            label: 'Chat',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person_outline),
-            activeIcon: Icon(Icons.person),
-            label: 'Me',
+      bottomNavigationBar: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const Divider(height: 0),
+          BottomNavigationBar(
+            elevation: 0,
+            showUnselectedLabels: false,
+            selectedFontSize: 10,
+            iconSize: 18,
+            selectedItemColor: Colors.teal,
+            type: BottomNavigationBarType.fixed,
+            currentIndex: widget.child.currentIndex,
+            onTap: (index) {
+              widget.child.goBranch(
+                index,
+                initialLocation: index == widget.child.currentIndex,
+              );
+              setState(() {});
+            },
+            items: const [
+              BottomNavigationBarItem(
+                icon: Icon(Icons.quiz_outlined),
+                activeIcon: Icon(Icons.quiz),
+                label: 'Quests',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.explore_outlined),
+                activeIcon: Icon(Icons.explore),
+                label: 'Explore',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.chat_outlined),
+                activeIcon: Icon(Icons.chat),
+                label: 'Chat',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.more_horiz),
+                label: 'More',
+              ),
+            ],
           ),
         ],
       ),

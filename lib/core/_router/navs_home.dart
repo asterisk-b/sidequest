@@ -47,9 +47,9 @@ _getHomeBottomNavigation({
         navigatorKey: accountKey,
         routes: [
           GoRoute(
-            path: accountPath,
+            path: othersPath,
             pageBuilder: (context, state) {
-              return _getPage(child: const AccountPage(), state: state);
+              return _getPage(child: const OthersPage(), state: state);
             },
           )
         ],

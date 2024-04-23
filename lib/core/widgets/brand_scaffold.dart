@@ -9,7 +9,7 @@ class BrandScaffold extends StatelessWidget {
   });
 
   final Widget child;
-  final AppBar? appBar;
+  final PreferredSizeWidget? appBar;
   final EdgeInsetsGeometry? padding;
 
   @override

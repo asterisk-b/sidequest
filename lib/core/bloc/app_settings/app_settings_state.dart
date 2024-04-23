@@ -2,27 +2,30 @@ part of 'app_settings_cubit.dart';
 
 final class AppSettingsState extends Equatable {
   const AppSettingsState({
-    this.mode = ThemeMode.light,
-    this.isLoading = false,
-    this.error,
+    this.language = "en",
+    this.mode = ThemeMode.system,
+    this.uiScale = 100,
   });
 
+  final String language;
   final ThemeMode mode;
-  final String? error;
-  final bool isLoading;
+  final double uiScale;
 
   @override
-  List<Object?> get props => [mode, isLoading];
+  List<Object?> get props => [
+        mode,
+        uiScale,
+      ];
 
   AppSettingsState copyWith({
+    String? language,
     ThemeMode? mode,
-    String? error,
-    bool? isLoading,
+    double? uiScale,
   }) {
     return AppSettingsState(
+      language: language ?? this.language,
       mode: mode ?? this.mode,
-      error: error ?? this.error,
-      isLoading: isLoading ?? this.isLoading,
+      uiScale: uiScale ?? this.uiScale,
     );
   }
 }

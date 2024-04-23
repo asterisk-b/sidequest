@@ -1,83 +1,55 @@
+import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
-import 'package:sidequest/core/theme/colors.dart';
+import 'package:sidequest/core/theme/theme_action_icon.dart';
 import 'package:sidequest/core/theme/theme_appbar.dart';
-import 'package:sidequest/core/theme/theme_button.dart';
-import 'package:sidequest/core/theme/theme_card.dart';
-import 'package:sidequest/core/theme/theme_input.dart';
-import 'package:sidequest/core/theme/theme_progress.dart';
-import 'package:sidequest/core/theme/theme_snackbar.dart';
-import 'package:sidequest/core/theme/theme_text.dart';
+import 'package:sidequest/core/theme/theme_segmented_button.dart';
+import 'package:sidequest/core/theme/theme_tabbar.dart';
+import 'package:sidequest/core/theme/theme_text_input.dart';
 
-abstract interface class BrandTheme<T> {
-  final T light;
+abstract class BrandTheme<T> {
   final T dark;
+  final T light;
 
-  BrandTheme._(this.light, this.dark);
+  BrandTheme._(this.dark, this.light);
+}
+
+abstract class SingleBrandTheme<T> {
+  /// The theme component
+  final T c;
+
+  SingleBrandTheme._(this.c);
 }
 
 class AppTheme implements BrandTheme<ThemeData> {
-  final textTheme = BrandTextTheme();
-  final cardTheme = BrandCardTheme();
-  final appbarTheme = BrandAppBarTheme();
+  final ThemeData _l = FlexThemeData.light(
+    scheme: FlexScheme.tealM3,
+    visualDensity: VisualDensity.compact,
+    useMaterial3: true,
+  );
 
-  final elevatedButtonTheme = BrandElevatedButtonTheme();
-  final iconButtonTheme = BrandIconButtonTheme();
-  final outlinedButtonTheme = BrandOutlinedButtonTheme();
-  final textButtonTheme = BrandTextButtonTheme();
+  final ThemeData _d = FlexThemeData.dark(
+    scheme: FlexScheme.tealM3,
+    visualDensity: VisualDensity.compact,
+    useMaterial3: true,
+  );
 
-  final inputTheme = BrandInputTheme();
-
-  final snackBarTheme = BrandSnackBarTheme();
-  final progressTheme = BrandProgressTheme();
+  // final _font = GoogleFonts.roboto();
 
   @override
-  ThemeData get dark => ThemeData.dark().copyWith(
-        primaryColor: TColors.darkPrimaryColor,
-
-        textSelectionTheme: TextSelectionThemeData(
-          cursorColor: TColors.darkSecondaryColor,
-        ),
-
-        ///.....
-        scaffoldBackgroundColor: appbarTheme.dark.backgroundColor,
-        textTheme: textTheme.dark,
-        appBarTheme: appbarTheme.dark,
-
-        elevatedButtonTheme: elevatedButtonTheme.dark,
-        iconButtonTheme: iconButtonTheme.dark,
-        outlinedButtonTheme: outlinedButtonTheme.dark,
-        textButtonTheme: textButtonTheme.dark,
-
-        inputDecorationTheme: inputTheme.dark,
-
-        cardTheme: cardTheme.dark,
-        snackBarTheme: snackBarTheme.dark,
-        progressIndicatorTheme: progressTheme.dark,
+  ThemeData get dark => _d.copyWith(
+        appBarTheme: BrandAppBarTheme(_d.colorScheme).c,
+        tabBarTheme: BrandTabBarTheme(_d.colorScheme).c,
+        segmentedButtonTheme: BrandSegmentedButtonTheme(_d.colorScheme).c,
+        actionIconTheme: BrandActionIconTheme(_d.colorScheme).c,
+        inputDecorationTheme: BrandTextInputTheme(_d.colorScheme).c,
       );
 
   @override
-  ThemeData get light => ThemeData(
-        useMaterial3: true,
-        primaryColor: TColors.lightPrimaryColor,
-
-        textSelectionTheme: TextSelectionThemeData(
-          cursorColor: TColors.darkSecondaryColor,
-        ),
-
-        ///.....
-        scaffoldBackgroundColor: appbarTheme.light.backgroundColor,
-        textTheme: textTheme.light,
-        appBarTheme: appbarTheme.light,
-
-        elevatedButtonTheme: elevatedButtonTheme.light,
-        iconButtonTheme: iconButtonTheme.light,
-        outlinedButtonTheme: outlinedButtonTheme.light,
-        textButtonTheme: textButtonTheme.light,
-
-        inputDecorationTheme: inputTheme.light,
-
-        cardTheme: cardTheme.light,
-        snackBarTheme: snackBarTheme.light,
-        progressIndicatorTheme: progressTheme.light,
+  ThemeData get light => _l.copyWith(
+        appBarTheme: BrandAppBarTheme(_l.colorScheme).c,
+        tabBarTheme: BrandTabBarTheme(_l.colorScheme).c,
+        segmentedButtonTheme: BrandSegmentedButtonTheme(_l.colorScheme).c,
+        actionIconTheme: BrandActionIconTheme(_l.colorScheme).c,
+        inputDecorationTheme: BrandTextInputTheme(_l.colorScheme).c,
       );
 }

@@ -1,0 +1,20 @@
+{
+  "app_settings": {
+    "title": "Settings ng Aplikasyon",
+    "theme": {
+      "select_title": "Pumili ng Tema",
+      "label": "Tema",
+      "system": "Ibase sa sistema",
+      "light": "Maliwanag",
+      "dark": "Madilim"
+    },
+    "language": {
+      "select_title": "Pumili ng Linguahe",
+      "label": "Linguahe",
+      "language": "Tagalog"
+    },
+    "reset": {
+      "label": "Ibalik sa pamantayan ng sistema"
+    }
+  }
+}
