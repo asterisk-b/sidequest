@@ -13,6 +13,10 @@
       "label": "Language",
       "language": "English"
     },
+    "start_screen": {
+      "select_title": "Select Start Screen",
+      "label": "Default start screen"
+    },
     "reset": {
       "label": "Restore system default"
     }

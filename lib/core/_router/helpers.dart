@@ -11,7 +11,8 @@ const String forgotPasswordPath = 'forgot-password';
 
 // --- HOME
 const String questsPath = '/quests';
-const String explorePath = '/explore';
+const String activitiesPath = '/activities';
+const String communityPath = '/community';
 const String chatPath = '/chat';
 const String othersPath = '/others';
 
@@ -25,7 +26,8 @@ const String questFormPath = '/quest-form';
 
 const List<String> _protected = [
   questsPath,
-  explorePath,
+  activitiesPath,
+  communityPath,
   chatPath,
   othersPath,
 

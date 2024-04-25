@@ -1,8 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:sidequest/core/_router/router.dart';
 
 enum UIStatus { idle, loading, failure, success }
+
+enum StartScreens implements Comparable<StartScreens> {
+  @JsonValue('quests')
+  quests(label: 'Quests', namePath: questsPath, indexPath: 0),
+
+  @JsonValue('activities')
+  activities(label: 'Activities', namePath: activitiesPath, indexPath: 1),
+
+  @JsonValue('community')
+  community(label: 'Community', namePath: communityPath, indexPath: 2);
+
+  const StartScreens({
+    required this.label,
+    required this.namePath,
+    required this.indexPath,
+  });
+
+  final String label;
+  final String namePath;
+  final int indexPath;
+
+  @override
+  int compareTo(StartScreens other) => namePath.compareTo(other.namePath);
+}
 
 enum QuestStatus implements Comparable<QuestStatus> {
   @JsonValue('idle')

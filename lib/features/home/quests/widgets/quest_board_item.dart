@@ -23,7 +23,7 @@ class QuestBoardItem extends StatelessWidget {
               Row(
                 children: [
                   Badge(
-                    backgroundColor: Theme.of(context).colorScheme.tertiary,
+                    backgroundColor: Colors.blue,
                     padding: const EdgeInsets.symmetric(horizontal: 8),
                     label: Text('Lvl ${quest.levelRequired}'),
                   ),

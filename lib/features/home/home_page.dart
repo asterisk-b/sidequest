@@ -40,9 +40,10 @@ class _HomePageState extends State<HomePageWrapper> {
           const Divider(height: 0),
           BottomNavigationBar(
             elevation: 0,
-            showUnselectedLabels: false,
-            selectedFontSize: 10,
-            iconSize: 18,
+            // showUnselectedLabels: false,
+            selectedFontSize: 9.5,
+            unselectedFontSize: 9.5,
+            iconSize: 19,
             selectedItemColor: Colors.teal,
             type: BottomNavigationBarType.fixed,
             currentIndex: widget.child.currentIndex,
@@ -60,9 +61,14 @@ class _HomePageState extends State<HomePageWrapper> {
                 label: 'Quests',
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.explore_outlined),
-                activeIcon: Icon(Icons.explore),
-                label: 'Explore',
+                icon: Icon(Icons.summarize_outlined),
+                activeIcon: Icon(Icons.summarize),
+                label: 'Activities',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.forum_outlined),
+                activeIcon: Icon(Icons.forum),
+                label: 'Community',
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.chat_outlined),

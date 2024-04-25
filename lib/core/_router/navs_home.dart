@@ -3,7 +3,8 @@ part of 'router.dart';
 _getHomeBottomNavigation({
   required GlobalKey<NavigatorState> rootKey,
   required GlobalKey<NavigatorState> questsKey,
-  required GlobalKey<NavigatorState> exploreKey,
+  required GlobalKey<NavigatorState> activitiesKey,
+  required GlobalKey<NavigatorState> communityKey,
   required GlobalKey<NavigatorState> chatKey,
   required GlobalKey<NavigatorState> accountKey,
 }) {
@@ -22,10 +23,21 @@ _getHomeBottomNavigation({
         ],
       ),
       StatefulShellBranch(
-        navigatorKey: exploreKey,
+        navigatorKey: activitiesKey,
         routes: [
           GoRoute(
-            path: explorePath,
+            path: activitiesPath,
+            pageBuilder: (context, state) {
+              return _getPage(child: const ActivitiesPage(), state: state);
+            },
+          )
+        ],
+      ),
+      StatefulShellBranch(
+        navigatorKey: communityKey,
+        routes: [
+          GoRoute(
+            path: communityPath,
             pageBuilder: (context, state) {
               return _getPage(child: const ExplorePage(), state: state);
             },

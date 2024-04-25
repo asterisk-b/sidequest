@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
+import 'package:sidequest/core/models/_enums.dart';
 
 part 'app_settings_state.dart';
 
@@ -9,6 +10,10 @@ class AppSettingsCubit extends HydratedCubit<AppSettingsState> {
 
   void switchTheme(ThemeMode? mode) {
     emit(state.copyWith(mode: mode ?? state.mode));
+  }
+
+  void switchStartScreen(StartScreens? screen) {
+    emit(state.copyWith(startScreen: screen ?? state.startScreen));
   }
 
   void increaseUI() {
@@ -38,6 +43,7 @@ class AppSettingsCubit extends HydratedCubit<AppSettingsState> {
 
     return AppSettingsState(
       mode: ThemeMode.values[json['mode']],
+      startScreen: StartScreens.values[json['startScreen']],
       uiScale: scale,
       language: language,
     );
@@ -47,6 +53,7 @@ class AppSettingsCubit extends HydratedCubit<AppSettingsState> {
   Map<String, dynamic>? toJson(AppSettingsState state) {
     return <String, dynamic>{
       'mode': state.mode.index,
+      'startScreen': state.startScreen.index,
       'uiScale': state.uiScale,
       'language': state.language,
     };

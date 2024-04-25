@@ -9,6 +9,7 @@ import 'package:sidequest/features/auth/authentication_page.dart';
 import 'package:sidequest/features/auth/forgot_password/forgot_password_page.dart';
 import 'package:sidequest/features/auth/login/login_page.dart';
 import 'package:sidequest/features/auth/register/register_page.dart';
+import 'package:sidequest/features/home/activities/activity_page.dart';
 import 'package:sidequest/features/home/chat/chat_page.dart';
 import 'package:sidequest/features/home/explore/explore_page.dart';
 import 'package:sidequest/features/home/home_page.dart';
@@ -46,6 +47,7 @@ class BrandNavigation {
 
   static final _rootNavigatorKey = GlobalKey<NavigatorState>();
   static final _questsNavigatorKey = GlobalKey<NavigatorState>();
+  static final _activitiesNavigatorKey = GlobalKey<NavigatorState>();
   static final _exploreNavigatorKey = GlobalKey<NavigatorState>();
   static final _chatNavigatorKey = GlobalKey<NavigatorState>();
   static final _accountNavigatorKey = GlobalKey<NavigatorState>();
@@ -81,7 +83,8 @@ class BrandNavigation {
       _getHomeBottomNavigation(
         rootKey: _rootNavigatorKey,
         questsKey: _questsNavigatorKey,
-        exploreKey: _exploreNavigatorKey,
+        activitiesKey: _activitiesNavigatorKey,
+        communityKey: _exploreNavigatorKey,
         chatKey: _chatNavigatorKey,
         accountKey: _accountNavigatorKey,
       ),

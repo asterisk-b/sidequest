@@ -35,7 +35,7 @@ class BrandCard extends StatelessWidget {
       children: [
         title != null
             ? Padding(
-                padding: const EdgeInsets.only(bottom: 5, left: 15, right: 15),
+                padding: const EdgeInsets.only(bottom: 5, left: 10, right: 10),
                 child: Text(
                   title ?? '',
                   style: Theme.of(context).textTheme.titleSmall,
